@@ -10,6 +10,9 @@
 <p align="center">
   Currently paid to be a Senior Software Engineer.
 </p>
+<p align="center">
+  <strong>Status:</strong> Senior Software Engineer (full-time)
+</p>
 
 <p align="center">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white" />
@@ -101,16 +104,6 @@
     </td>
   </tr>
 </table>
-
-## What I optimize for
-
-- Fast feedback loops in editors and CLI tools
-- Clear ergonomics for large, messy codebases
-- DX-first defaults with sensible configuration
-
-## Collaborate
-
-Open an issue on any repo for bugs, features, or integration questions.
 
 ## Support
 
