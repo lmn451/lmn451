@@ -7,6 +7,9 @@
 <p align="center">
   I build language servers, editor extensions, and web utilities that make complex codebases feel small.
 </p>
+<p align="center">
+  Currently paid to be a Senior Software Engineer.
+</p>
 
 <p align="center">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white" />
