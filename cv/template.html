@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Michael Lerman - CV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Roboto+Condensed:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>/*__CV_CSS__*/</style>
+  </head>
+  <body>
+    <main id="cv"></main>
+    <script id="cv-data" type="application/json">__CV_DATA__</script>
+    <script>
+      const data = JSON.parse(document.getElementById('cv-data').textContent);
+      const root = document.getElementById('cv');
+
+      const link = (href, label) => `<a href="${href}">${label}</a>`;
+      const experience = (job) => `
+        <article class="experience">
+          <div class="period">${job.period}</div>
+          <div class="position">
+            ${link(job.companyUrl, job.company)},
+            <strong class="location">${job.location}</strong>
+            <span class="separator">-</span>
+            <em>${job.role}${job.team ? ` (${job.team})` : ''}</em>
+          </div>
+          <ul>${job.bullets.map((bullet) => `<li><span class="bullet">●</span><span>${bullet}</span></li>`).join('')}</ul>
+        </article>`;
+
+      const projects = data.sideProjects.map((project) => `
+        <article class="project">
+          <p><strong>${project.url ? link(project.url, project.name) : project.name}</strong> - ${project.descriptionHtml}</p>
+        </article>`).join('');
+
+      root.innerHTML = `
+        <section class="page page-one">
+          <header>
+            <h1>${data.name}</h1>
+            <div class="contacts">
+              <span>${data.phone}</span>
+              ${link(`mailto:${data.email}`, data.email)}
+              <span>${data.location}</span>
+            </div>
+            <p class="summary">${data.summary}</p>
+          </header>
+
+          <h2>Work experience</h2>
+          ${data.experience.map(experience).join('')}
+          <p class="freelance"><strong>${data.freelance.label}</strong> | ${link(data.freelance.githubUrl, data.freelance.githubLabel)}</p>
+        </section>
+
+        <section class="page page-two">
+          <h2>Side Projects</h2>
+          <div class="projects">${projects}</div>
+
+          <h2 class="skills-title">Skills</h2>
+          <p class="skills">${data.skills.join(' · ')}</p>
+        </section>`;
+    </script>
+  </body>
+</html>

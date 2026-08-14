@@ -1,0 +1,12 @@
+{
+  "name": "lmn451-profile",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cv:build": "node cv/render.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}
+

@@ -13,6 +13,8 @@
 <p align="center">
   <a href="https://subagentura.tech"><strong>Portfolio</strong></a>
   ·
+  <a href="./output/pdf/michael-lerman-cv.pdf"><strong>CV</strong></a>
+  ·
   <a href="mailto:hello@subagentura.tech"><strong>Contact</strong></a>
   ·
   <a href="https://github.com/lmn451?tab=repositories"><strong>All projects</strong></a>
@@ -87,3 +89,12 @@ Use code-aware queries to understand component APIs and audit prop usage across 
 ## Get in Touch
 
 Interested in developer tools, editor infrastructure, or agent workflows? Reach me at **[hello@subagentura.tech](mailto:hello@subagentura.tech)**.
+
+<details>
+  <summary><strong>CV preview</strong></summary>
+  <p align="center">
+    <a href="./output/pdf/michael-lerman-cv.pdf">
+      <img src="./assets/cv-preview.png" alt="Preview of Michael Lerman's CV" width="760" />
+    </a>
+  </p>
+</details>

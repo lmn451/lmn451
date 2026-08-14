@@ -1,0 +1,96 @@
+{
+  "name": "Michael Lerman",
+  "phone": "+972 58 7646417",
+  "email": "lerman.misha@gmail.com",
+  "location": "Tel-Aviv, Israel",
+  "summary": "Highly motivated AI-native fast self-learner who isn't afraid to ask questions. Comfortable being independent as much as being a team player. CoffeeScript lover.",
+  "experience": [
+    {
+      "period": "2024 - now",
+      "company": "Ironscales",
+      "companyUrl": "https://ironscales.com/",
+      "location": "Ramat Gan",
+      "role": "Senior Software Engineer",
+      "team": "Application Team",
+      "bullets": [
+        "Led the <strong>redesign</strong> of the main dashboard, simplifying navigation and reducing cognitive load through a more intuitive UX. Built a persistent filtering system that preserved user context, reduced repetitive navigation, and made key product workflows faster and more efficient.",
+        "Expanded visual regression testing from <strong>design-system</strong> components to full product pages by building a <strong>Chromatic/Storybook</strong> screenshot pipeline, increasing release confidence and catching UI regressions earlier.",
+        "Cut production build times by 90% and HMR latency by 40% by migrating the frontend build pipeline from <strong>Webpack</strong> to <strong>Rspack</strong>.",
+        "Standardized the styling architecture by replacing fragmented <strong>CSS</strong> approaches with enforced styled-components conventions, improving maintainability and consistency across the product.",
+        "Served as a <strong>technical interviewer</strong>, evaluating candidate skills and contributing to hiring decisions for the engineering team.",
+        "Created a local frontend development environment from the ground up using <strong>Nginx/Caddy</strong> proxy networking, automatic HTTPS, and simplified configuration, enabling faster iteration and a smoother developer experience.",
+        "Established <strong>AI-ready guardrails</strong> through custom <strong>ESLint</strong> rules that encoded engineering standards, making AI-assisted development safer, more consistent, and easier to review.",
+        "Championed a zero-error policy in <strong>Sentry</strong>, reducing alert fatigue and strengthening the reliability of production monitoring."
+      ]
+    },
+    {
+      "period": "2021 - 2024",
+      "company": "Checkpoint",
+      "companyUrl": "https://www.checkpoint.com/",
+      "location": "Tel-Aviv",
+      "role": "Frontend Developer",
+      "team": "Renewal tool",
+      "bullets": [
+        "Doubled Core Web Vitals performance using <strong>React Suspense</strong> and code-splitting, as validated by Lighthouse.",
+        "Enhanced build process efficiency through an upgrade to <strong>Webpack 5</strong> and <strong>Vite</strong>.",
+        "Contributed to internal <strong>Design System</strong> development in conjunction with UI/UX experts.",
+        "Implemented a mock API using <strong>Express.js</strong>.",
+        "Modernized and streamlined development processes by updating <strong>CI/CD</strong> (Bamboo) pipelines.",
+        "Migrated to <strong>TanStack Query</strong> to implement caching strategies and improve the user experience."
+      ]
+    },
+    {
+      "period": "2020 - 2021",
+      "company": "1824",
+      "companyUrl": "https://1824.co.il/",
+      "location": "Netanya",
+      "role": "Full Stack Developer",
+      "team": "Jobs portal",
+      "bullets": [
+        "Built a mobile-first application and admin dashboard from scratch using <strong>Next.js</strong>.",
+        "Managed authentication and database operations with <strong>Firebase Firestore</strong>.",
+        "Implemented <strong>Google Functions</strong> for cron jobs.",
+        "Developed a REST API on <strong>Laravel</strong> with <strong>MySQL</strong>, integrated with a third-party lead system."
+      ]
+    }
+  ],
+  "freelance": {
+    "label": "Freelance Developer (since 2017)",
+    "githubLabel": "GitHub account created in 2015",
+    "githubUrl": "https://github.com/lmn451"
+  },
+  "sideProjects": [
+    {
+      "name": "Pi coding-agent extensions",
+      "descriptionHtml": "<a href=\"https://github.com/lmn451/pi-subagentura\">pi-subagentura</a> for observable sub-agent orchestration, <a href=\"https://github.com/lmn451/pi-docs\">pi-doc-injector</a> for deterministic documentation context, and <a href=\"https://github.com/lmn451/pi-ralplan\">pi-ralplan</a> for consensus-driven planning."
+    },
+    {
+      "name": "Zed CSS Variables Extension",
+      "url": "https://zed.dev/extensions/css-variables",
+      "descriptionHtml": "Developed <strong>CSS LSP</strong> integrations in <a href=\"https://github.com/lmn451/css-lsp\">TypeScript</a> and <a href=\"https://github.com/lmn451/css-lsp-rust\">Rust</a> for autocompletion, refactoring, diagnostics, and visual previews of CSS variables."
+    },
+    {
+      "name": "JSX Prop Lookup MCP",
+      "url": "https://github.com/lmn451/jsx-prop-lookup-mcp-server",
+      "descriptionHtml": "CLI/MCP server that gives LLMs code-aware JSX prop analysis through Abstract Syntax Tree parsing; published as an <a href=\"https://www.npmjs.com/package/jsx-prop-lookup-mcp-server\">open-source npm package</a>."
+    },
+    {
+      "name": "Git Search",
+      "url": "https://marketplace.visualstudio.com/items?itemName=lmn451.git-log-s",
+      "descriptionHtml": "VS Code extension for in-depth Git history analysis and faster understanding of codebase changes."
+    },
+    {
+      "name": "Betton",
+      "url": "https://betton.shmlkv.space",
+      "descriptionHtml": "Betting platform based on the <strong>TON blockchain</strong> using <strong>Next.js</strong>, <strong>Chakra UI</strong>, and <strong>Supabase</strong>."
+    },
+    {
+      "name": "Homy",
+      "url": "https://apps.apple.com/il/app/homy-rent-is-simple/id1664978437",
+      "descriptionHtml": "User-friendly apartment-rental application for the Israeli market built with <strong>React Native</strong> and <strong>Expo</strong>; available on the iOS App Store."
+    }
+  ],
+  "skills": [
+    "JavaScript", "TypeScript", "HTML5", "CSS3", "React", "Next.js", "React Native", "Redux", "Redux Toolkit", "Redux Observable", "Zustand", "TanStack Query", "GraphQL", "REST APIs", "WebSockets", "Node.js", "Express.js", "NestJS", "PostgreSQL", "MySQL", "MongoDB", "Redis", "Firebase", "Supabase", "Prisma", "Docker", "Docker Compose", "Nginx", "Git", "GitHub Actions", "GitLab CI/CD", "AWS", "Vercel", "Vite", "Webpack", "Babel", "npm", "pnpm", "Jest", "Vitest", "Playwright", "Cypress", "React Testing Library", "Storybook", "Tailwind CSS", "Styled Components", "Material UI", "React Hook Form", "Zod", "ESLint", "Prettier", "Turborepo", "Nx", "Monorepos", "OAuth 2.0", "OpenID Connect", "JWT", "Server-Sent Events", "Performance Optimization", "Core Web Vitals", "Accessibility (WCAG)", "Responsive Design", "Design Systems", "Microfrontends", "Module Federation", "Agile", "Scrum", "Cursor", "Claude Code", "Codex"
+  ]
+}

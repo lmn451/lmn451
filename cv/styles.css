@@ -1,0 +1,210 @@
+:root {
+  --ink: #080808;
+  --muted: #626262;
+  --link: #0b57d0;
+  --heading: #4d8df0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #f3f4f6;
+  color: var(--ink);
+}
+
+body {
+  font-family: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+  font-size: 13pt;
+  line-height: 1.18;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 10mm auto;
+  padding: 10mm 12mm 9mm;
+  background: white;
+  box-shadow: 0 2mm 8mm rgb(15 23 42 / 14%);
+}
+
+.page-one {
+  break-after: page;
+}
+
+header {
+  text-align: center;
+}
+
+h1,
+h2,
+.location,
+.position em {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18pt;
+  line-height: 1.1;
+}
+
+.contacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: baseline;
+  margin-top: 2pt;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 14pt;
+}
+
+.contacts > :first-child {
+  text-align: left;
+  padding-left: 15mm;
+}
+
+.contacts > :last-child {
+  text-align: right;
+  padding-right: 15mm;
+}
+
+.summary {
+  max-width: 178mm;
+  margin: 14pt auto 16pt;
+  font-size: 13pt;
+  line-height: 1.22;
+}
+
+h2 {
+  margin: 0 0 1pt;
+  color: var(--heading);
+  font-size: 14pt;
+  line-height: 1.1;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 0.6pt;
+  text-underline-offset: 1pt;
+}
+
+.experience {
+  margin: 0 0 13pt;
+  break-inside: avoid;
+}
+
+.period {
+  color: var(--muted);
+  font-family: Lato, Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.12;
+}
+
+.position {
+  margin-top: 1pt;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 14pt;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.location {
+  font-size: 12pt;
+}
+
+.separator {
+  padding: 0 3pt;
+  font-family: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+  font-weight: 400;
+}
+
+.position em {
+  font-size: 12pt;
+  font-weight: 400;
+}
+
+ul {
+  margin: 14pt 0 0;
+  padding: 0 0 0 10pt;
+  list-style: none;
+}
+
+li {
+  display: grid;
+  grid-template-columns: 14pt 1fr;
+  column-gap: 1pt;
+  margin: 0;
+  padding: 0;
+}
+
+.bullet {
+  padding-top: 2.5pt;
+  font-family: Arial, sans-serif;
+  font-size: 7.5pt;
+  line-height: 1;
+}
+
+.freelance {
+  margin: 12pt 0 0 8pt;
+  font-weight: 700;
+}
+
+.page-two {
+  padding-top: 14mm;
+}
+
+.page-two h2 {
+  margin-bottom: 18pt;
+}
+
+.projects {
+  font-size: 14pt;
+  line-height: 1.24;
+}
+
+.project {
+  margin-bottom: 14pt;
+  break-inside: avoid;
+}
+
+.project p {
+  margin: 0;
+}
+
+.project > p > strong {
+  font-weight: 400;
+}
+
+.skills-title {
+  margin-top: 24pt !important;
+  margin-bottom: 7pt !important;
+}
+
+.skills {
+  margin: 0;
+  color: #202020;
+  font-size: 9pt;
+  line-height: 1.35;
+}
+
+@media print {
+  html,
+  body {
+    background: white;
+  }
+
+  .page {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
