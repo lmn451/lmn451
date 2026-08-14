@@ -1,107 +1,89 @@
 <p align="center">
-  <img src="./assets/banner.svg" alt="lmn451 banner" />
+  <img src="./assets/banner.svg" alt="lmn451 — language servers, editor tooling, and agent workflows" />
 </p>
 
-<h2 align="center">Developer tooling for editors, CSS, and code archaeology.</h2>
+<h2 align="center">Developer tools that make large codebases easier to understand and change.</h2>
 
 <p align="center">
-  I build language servers, editor extensions, and web utilities that make complex codebases feel small.
+  Senior software engineer building language servers, editor integrations, and observable agent workflows in Rust and TypeScript.
   <br />
-  Currently paid to be a Senior Software Engineer.
+  Open to opportunities focused on developer infrastructure, editors, and AI tooling.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Senior%20Software%20Engineer-2ecc71?style=flat-square&logo=clockify&logoColor=white" alt="Status: Senior Software Engineer" />
+  <a href="https://subagentura.tech"><strong>Portfolio</strong></a>
+  ·
+  <a href="mailto:hello@subagentura.tech"><strong>Contact</strong></a>
+  ·
+  <a href="https://github.com/lmn451?tab=repositories"><strong>All projects</strong></a>
 </p>
 
-<p align="center">
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178c6?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img alt="Rust" src="https://img.shields.io/badge/Rust-dea584?style=for-the-badge&logo=rust&logoColor=000000" />
-  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-f1e05a?style=for-the-badge&logo=javascript&logoColor=000000" />
-  <br />
-  <img alt="VS Code" src="https://img.shields.io/badge/VS%20Code-007acc?style=for-the-badge&logo=visualstudiocode&logoColor=white" />
-  <img alt="Zed" src="https://img.shields.io/badge/Zed-111827?style=for-the-badge" />
-  <img alt="Cloudflare" src="https://img.shields.io/badge/Cloudflare-f97316?style=for-the-badge&logo=cloudflare&logoColor=white" />
+## Featured Work
+
+### CSS Variables Tooling
+
+**Project-wide CSS custom-property intelligence, from a native language server to editor integrations.**
+
+I maintain a connected toolchain that brings completion, hover, navigation, rename, diagnostics, and color tools to CSS, HTML, JavaScript/TypeScript, Vue, Svelte, Astro, and more.
+
+- Native Rust language server with cross-platform binaries and no Node.js runtime requirement
+- Zed and VS Code integrations that select and configure the right server automatically
+- TypeScript/npm implementation for portable and fallback environments
+
+<p>
+  <a href="https://zed.dev/extensions/css-variables"><strong>Install for Zed »</strong></a>
+  ·
+  <a href="https://github.com/lmn451/css-lsp-rust"><strong>Rust LSP</strong></a>
+  ·
+  <a href="https://www.npmjs.com/package/css-variable-lsp"><strong>npm</strong></a>
+  ·
+  <a href="https://marketplace.visualstudio.com/items?itemName=miclmn451.css-variables-vscode"><strong>Install for VS Code »</strong></a>
 </p>
 
-## Signature Projects
+---
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>⚛️ JSX Prop Lookup (MCP)</h3>
-      <p>AST-powered analysis for React and TypeScript prop usage across a whole repo.</p>
-      <p>
-        <a href="https://github.com/lmn451/jsx-prop-lookup-mcp-server"><strong>View Repo »</strong></a>
-      </p>
-      <ul>
-        <li>Codebase-wide prop search and component analysis</li>
-        <li>Advanced component queries with AND/OR filters</li>
-        <li>TypeScript interface-aware results</li>
-      </ul>
-    </td>
-    <td width="50%" valign="top">
-      <h3>🎨 CSS Variable LSP</h3>
-      <p>Language server focused on CSS custom properties with completions, hovers, and diagnostics.</p>
-      <p>
-        <a href="https://github.com/lmn451/css-lsp"><strong>View Repo</strong></a> | <a href="https://www.npmjs.com/package/css-variable-lsp"><strong>npm »</strong></a>
-      </p>
-      <ul>
-        <li>Workspace indexing across CSS and HTML styles</li>
-        <li>Cascade-aware hover resolution</li>
-        <li>Diagnostics for undefined variables</li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>⚡ CSS Variables for Zed</h3>
-      <p>Zed extension that runs css-variable-lsp with zero manual setup.</p>
-      <p>
-        <a href="https://github.com/lmn451/css-variables-zed"><strong>View Repo</strong></a> | <a href="https://zed.dev/extensions/css-variables"><strong>Zed Extension »</strong></a>
-      </p>
-      <ul>
-        <li>Completion, hover, and references for CSS variables</li>
-        <li>Works in CSS, JS/TS, Vue, Svelte, and more</li>
-        <li>Auto-installs the latest LSP on first run</li>
-      </ul>
-    </td>
-    <td width="50%" valign="top">
-      <h3>🔍 Git Search for VS Code</h3>
-      <p>Fast, UI-based git log search to answer who changed what and when.</p>
-      <p>
-        <a href="https://github.com/lmn451/git-search"><strong>View Repo »</strong></a>
-      </p>
-      <ul>
-        <li>Search commit history without the terminal</li>
-        <li>Jump straight to remote commits</li>
-        <li>Pagination for large histories</li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h3>🎥 Screencast Extension</h3>
-      <p>Chromium browser extension for screen recording workflows.</p>
-      <p>
-        <a href="https://github.com/lmn451/screencast"><strong>View Repo »</strong></a>
-      </p>
-      <ul>
-        <li>Unpacked dev workflow for Chromium browsers</li>
-        <li>Clear setup and reload steps for fast iteration</li>
-      </ul>
-    </td>
-    <td width="50%" valign="top">
-      <h3>🏠 Smart Life Webapp</h3>
-      <p>PWA to control Smart Life devices with a Cloudflare Pages Functions API proxy.</p>
-      <p>
-        <a href="https://github.com/lmn451/smart-life-webapp"><strong>View Repo »</strong></a>
-      </p>
-      <ul>
-        <li>Vue 3, Element Plus, and Cloudflare Pages</li>
-        <li>Tuya API proxy with region support</li>
-      </ul>
-    </td>
-  </tr>
-</table>
-</div>
+### pi-subagentura
+
+**Reusable multi-agent workflows and observable, attachable sub-agents for the Pi coding agent.**
+
+Give the parent agent an outcome and let it build the team. pi-subagentura turns work into saved workflows while keeping child sessions visible and their intermediate results out of the parent context.
+
+- Run sequential, parallel, and pipelined agent workflows in the background
+- Watch, attach to, and continue child sessions in tmux or Zellij
+- Reuse review, research, migration, and conversion workflows across projects
+
+<p>
+  <a href="https://subagentura.tech"><strong>View project »</strong></a>
+  ·
+  <a href="https://www.npmjs.com/package/pi-subagentura"><strong>npm</strong></a>
+  ·
+  <a href="https://github.com/lmn451/pi-subagentura"><strong>Source</strong></a>
+</p>
+
+---
+
+### JSX Prop Lookup
+
+**AST-powered React and TypeScript prop analysis exposed through MCP.**
+
+Use code-aware queries to understand component APIs and audit prop usage across an unfamiliar repository before a refactor.
+
+- Find prop usages and component APIs across JavaScript and TypeScript projects
+- Recover TypeScript interface information alongside component results
+- Audit component instances for missing required props
+
+<p>
+  <a href="https://www.npmjs.com/package/jsx-prop-lookup-mcp-server"><strong>Install from npm »</strong></a>
+  ·
+  <a href="https://github.com/lmn451/jsx-prop-lookup-mcp-server"><strong>Source</strong></a>
+</p>
+
+## More Projects
+
+- **[Git Search for VS Code](https://marketplace.visualstudio.com/items?itemName=lmn451.git-log-s)** — Search commit history, paginate large result sets, and jump directly to remote commits. [Source](https://github.com/lmn451/git-search)
+- **[Screencast](https://subagentura.tech/screencast/)** — Chromium extension for screen-recording workflows, recovery, diagnostics, and export. [Source](https://github.com/lmn451/screencast)
+- **[Smart Life Webapp](https://smart-life-webapp.pages.dev)** — Installable Vue PWA for controlling Smart Life devices through a region-aware Cloudflare API proxy. [Source](https://github.com/lmn451/smart-life-webapp)
+
+## Get in Touch
+
+Interested in developer tools, editor infrastructure, or agent workflows? Reach me at **[hello@subagentura.tech](mailto:hello@subagentura.tech)**.
