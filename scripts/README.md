@@ -1,10 +1,12 @@
 # Banner source
 
-The profile uses a locally generated 3D ASCII constellation. No external animation service is needed to display it.
+The profile uses a locally generated, interwoven 3D ASCII sculpture. No external animation service is needed to display it.
+
+The shape is a closed trefoil with a twisting elliptical cross-section, sampled at 35,840 surface points. A per-character depth buffer hides occluded surfaces. Directional, rim, and specular lighting define the ribbons, while a traveling highlight and an orbital trace give the loop movement beyond rotation.
 
 - `banner.html`: editable canvas source, with a 16-second periodic rotation and a stationary headline.
 - `render-banner.cjs`: deterministic frame capture and palette-optimized GIF export.
-- `../assets/banner.gif`: 1200 × 360, 200 frames at 12.5 fps, looping every 16 seconds.
+- `../assets/banner.gif`: 1200 × 360, 320 frames at 20 fps, looping every 16 seconds.
 - `../assets/banner-static.png`: matching still for reduced-motion preferences and the explicit static-banner link.
 - `../assets/banner.svg`: original static masthead, retained as an alternative.
 

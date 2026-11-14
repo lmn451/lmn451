@@ -9,7 +9,7 @@ const { spawnSync } = require('node:child_process');
 const { chromium } = require('playwright');
 
 const ROOT = path.resolve(__dirname, '..');
-const FPS = 12.5;
+const FPS = 20;
 const MAX_BYTES = 5 * 1024 * 1024;
 
 async function main() {
@@ -45,7 +45,7 @@ async function main() {
       return { seamless: first === canvas.toDataURL(), animated: first !== quarter, staticHeadline };
     });
     assert.deepEqual(checks, { seamless: true, animated: true, staticHeadline: true });
-    console.log('Validated seamless loop, moving constellation, and static headline.');
+    console.log('Validated seamless loop, moving sculpture, and static headline.');
     const count = Math.round(duration * FPS);
     for (let frame = 0; frame < count; frame++) {
       const png = await page.evaluate(seconds => {
@@ -61,7 +61,7 @@ async function main() {
     const encoded = spawnSync('ffmpeg', [
       '-hide_banner', '-loglevel', 'error', '-y', '-framerate', String(FPS),
       '-i', path.join(temp, '%04d.png'),
-      '-filter_complex', '[0:v]split[a][b];[a]palettegen=max_colors=96:stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle',
+      '-filter_complex', '[0:v]split[a][b];[a]palettegen=max_colors=96:stats_mode=diff[p];[b][p]paletteuse=dither=none:diff_mode=rectangle',
       '-loop', '0', gif,
     ], { encoding: 'utf8', timeout: 120000 });
     if (encoded.status !== 0) throw new Error(encoded.error?.message || encoded.stderr || 'GIF encoding failed');
