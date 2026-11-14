@@ -1,27 +1,31 @@
-<svg width="1200" height="240" viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="lmn451 — language servers, editor tooling, and agent workflows">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">lmn451 / Tools for understanding code</title>
+  <desc id="desc">A dark technical masthead with a connected diagram linking code, context, and change. Rust and TypeScript. Language servers, editors, agents.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="100%" stop-color="#0b3b5e" />
-    </linearGradient>
-    <linearGradient id="accent" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0%" stop-color="#14b8a6" />
-      <stop offset="100%" stop-color="#f97316" />
-    </linearGradient>
-    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#22c55e" />
-      <stop offset="100%" stop-color="#eab308" />
-    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#273238" stroke-width="0.7"/></pattern>
   </defs>
-  <rect width="1200" height="240" rx="24" fill="url(#bg)" />
-  <circle cx="960" cy="-60" r="190" fill="url(#accent)" opacity="0.22" />
-  <circle cx="1100" cy="180" r="150" fill="url(#accent2)" opacity="0.18" />
-  <rect x="60" y="44" width="700" height="152" rx="16" fill="#0b1220" opacity="0.55" />
-  <text x="92" y="112" fill="#e2e8f0" font-size="50" font-weight="700" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif">
-    lmn451
-  </text>
-  <text x="92" y="156" fill="#94a3b8" font-size="21" font-weight="500" font-family="Space Grotesk, Segoe UI, Helvetica, Arial, sans-serif">
-    language servers | editor tooling | agent workflows
-  </text>
-  <rect x="92" y="170" width="110" height="6" rx="3" fill="#14b8a6" />
+  <rect width="1200" height="360" rx="12" fill="#10191d"/>
+  <rect x="700" width="500" height="360" fill="url(#grid)"/>
+  <path d="M0 0H1200" stroke="#b7ee83" stroke-width="6"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="56" y="66" font-size="23" font-weight="700" fill="#b7ee83">lmn451<tspan fill="#829397" font-weight="400"> / software engineer</tspan></text>
+    <g fill="#f1f4ee" font-size="52" font-weight="700">
+      <text x="52" y="145">Tools for</text>
+      <text x="52" y="205">understanding code.</text>
+    </g>
+    <text x="56" y="260" fill="#b8c4c6" font-size="20">Language servers. Editors. Agents.</text>
+    <text x="56" y="315" fill="#829397" font-size="17">Built in Rust &amp; TypeScript</text>
+  </g>
+  <g fill="none" stroke="#b7ee83" stroke-width="2">
+    <path d="M819 118V180H907V242H1062"/>
+    <path d="M819 180H1062V118" opacity="0.35"/>
+    <circle cx="819" cy="118" r="7" fill="#10191d"/>
+    <circle cx="907" cy="180" r="7" fill="#b7ee83"/>
+    <circle cx="1062" cy="242" r="7" fill="#10191d"/>
+  </g>
+  <g font-family="monospace" font-size="18" fill="#b8c4c6">
+    <text x="792" y="91">code</text>
+    <text x="930" y="174">context</text>
+    <text x="1028" y="282">change</text>
+  </g>
 </svg>

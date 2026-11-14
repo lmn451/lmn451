@@ -1,89 +1,81 @@
-<p align="center">
-  <img src="./assets/banner.svg" alt="lmn451 — language servers, editor tooling, and agent workflows" />
-</p>
-
-<h2 align="center">Developer tools that make large codebases easier to understand and change.</h2>
-
-<p align="center">
-  Senior software engineer building language servers, editor integrations, and observable agent workflows in Rust and TypeScript.
-  <br />
-  Open to opportunities focused on developer infrastructure, editors, and AI tooling.
-</p>
-
-<p align="center">
-  <a href="https://subagentura.tech"><strong>Portfolio</strong></a>
-  ·
-  <a href="mailto:hello@subagentura.tech"><strong>Contact</strong></a>
-  ·
-  <a href="https://github.com/lmn451?tab=repositories"><strong>All projects</strong></a>
-</p>
-
-## Featured Work
-
-### CSS Variables Tooling
-
-**Project-wide CSS custom-property intelligence, from a native language server to editor integrations.**
-
-I maintain a connected toolchain that brings completion, hover, navigation, rename, diagnostics, and color tools to CSS, HTML, JavaScript/TypeScript, Vue, Svelte, Astro, and more.
-
-- Native Rust language server with cross-platform binaries and no Node.js runtime requirement
-- Zed and VS Code integrations that select and configure the right server automatically
-- TypeScript/npm implementation for portable and fallback environments
-
 <p>
-  <a href="https://zed.dev/extensions/css-variables"><strong>Install for Zed »</strong></a>
-  ·
-  <a href="https://github.com/lmn451/css-lsp-rust"><strong>Rust LSP</strong></a>
-  ·
-  <a href="https://www.npmjs.com/package/css-variable-lsp"><strong>npm</strong></a>
-  ·
-  <a href="https://marketplace.visualstudio.com/items?itemName=miclmn451.css-variables-vscode"><strong>Install for VS Code »</strong></a>
+  <img src="./assets/banner.svg" alt="lmn451. Tools for understanding code. Language servers, editor integrations, and observable agent workflows." width="1200" />
 </p>
+
+# Make unfamiliar code feel navigable.
+
+I'm **lmn451**, a senior software engineer building tools that help developers and coding agents understand large codebases and change them with confidence.
+
+My work connects **language intelligence**, **editor experience**, and **observable agent workflows**, primarily in **Rust and TypeScript**.
+
+**[Explore my work](https://subagentura.tech)** · **[Get in touch](mailto:hello@subagentura.tech)** · [All repositories](https://github.com/lmn451?tab=repositories)
 
 ---
 
-### pi-subagentura
+## From a question to the code that answers it
 
-**Reusable multi-agent workflows and observable, attachable sub-agents for the Pi coding agent.**
+**01 / Language intelligence**
 
-Give the parent agent an outcome and let it build the team. pi-subagentura turns work into saved workflows while keeping child sessions visible and their intermediate results out of the parent context.
+## CSS Variables Tooling
 
-- Run sequential, parallel, and pipelined agent workflows in the background
-- Watch, attach to, and continue child sessions in tmux or Zellij
-- Reuse review, research, migration, and conversion workflows across projects
+**A custom property should be traceable beyond the file you're editing.**
 
-<p>
-  <a href="https://subagentura.tech"><strong>View project »</strong></a>
-  ·
-  <a href="https://www.npmjs.com/package/pi-subagentura"><strong>npm</strong></a>
-  ·
-  <a href="https://github.com/lmn451/pi-subagentura"><strong>Source</strong></a>
-</p>
+CSS variables cross stylesheets, components, and framework boundaries. I maintain a connected toolchain that makes them discoverable across the workspace, from a native language server to Zed and VS Code integrations.
+
+- **Understand:** completions, hover, and diagnostics.
+- **Navigate and change:** definitions, references, rename, and color tools.
+- **Run where you work:** a native Rust server without a Node.js requirement, plus a TypeScript implementation for portable and fallback environments.
+
+Supports CSS, HTML, JavaScript/TypeScript, Vue, Svelte, Astro, and more.
+
+[Install for Zed](https://zed.dev/extensions/css-variables) · [Install for VS Code](https://marketplace.visualstudio.com/items?itemName=miclmn451.css-variables-vscode) · [Read the Rust source](https://github.com/lmn451/css-lsp-rust) · [npm](https://www.npmjs.com/package/css-variable-lsp)
 
 ---
 
-### JSX Prop Lookup
+**02 / Agent infrastructure**
 
-**AST-powered React and TypeScript prop analysis exposed through MCP.**
+## pi-subagentura
 
-Use code-aware queries to understand component APIs and audit prop usage across an unfamiliar repository before a refactor.
+**Delegate the work. Keep sight of the execution.**
 
-- Find prop usages and component APIs across JavaScript and TypeScript projects
-- Recover TypeScript interface information alongside component results
-- Audit component instances for missing required props
+Multi-agent work shouldn't mean losing the thread. pi-subagentura gives the Pi coding agent reusable workflows and visible child sessions, keeping intermediate results out of the parent context while making the work inspectable.
 
-<p>
-  <a href="https://www.npmjs.com/package/jsx-prop-lookup-mcp-server"><strong>Install from npm »</strong></a>
-  ·
-  <a href="https://github.com/lmn451/jsx-prop-lookup-mcp-server"><strong>Source</strong></a>
-</p>
+- **Compose:** sequential, parallel, and pipelined workflows in the background.
+- **Observe:** watch, attach to, and continue child sessions in tmux or Zellij.
+- **Reuse:** save review, research, migration, and conversion workflows across projects.
 
-## More Projects
+[Explore the project](https://subagentura.tech) · [Read the source](https://github.com/lmn451/pi-subagentura) · [npm](https://www.npmjs.com/package/pi-subagentura)
 
-- **[Git Search for VS Code](https://marketplace.visualstudio.com/items?itemName=lmn451.git-log-s)** — Search commit history, paginate large result sets, and jump directly to remote commits. [Source](https://github.com/lmn451/git-search)
-- **[Screencast](https://subagentura.tech/screencast/)** — Chromium extension for screen-recording workflows, recovery, diagnostics, and export. [Source](https://github.com/lmn451/screencast)
-- **[Smart Life Webapp](https://smart-life-webapp.pages.dev)** — Installable Vue PWA for controlling Smart Life devices through a region-aware Cloudflare API proxy. [Source](https://github.com/lmn451/smart-life-webapp)
+---
 
-## Get in Touch
+**03 / Code-aware analysis**
 
-Interested in developer tools, editor infrastructure, or agent workflows? Reach me at **[hello@subagentura.tech](mailto:hello@subagentura.tech)**.
+## JSX Prop Lookup
+
+**Before changing a component API, understand who depends on it.**
+
+An AST-powered MCP server for exploring React and TypeScript prop usage. Query the code's structure before a refactor instead of relying on text matches alone.
+
+- **Find:** component APIs and prop usages across JavaScript and TypeScript projects.
+- **Inspect:** TypeScript interface information alongside component results.
+- **Audit:** component instances for missing required props.
+
+[Read the source](https://github.com/lmn451/jsx-prop-lookup-mcp-server) · [Install from npm](https://www.npmjs.com/package/jsx-prop-lookup-mcp-server)
+
+---
+
+## Also on the workbench
+
+| Project | What it helps you do |
+| :--- | :--- |
+| **[Git Search for VS Code](https://marketplace.visualstudio.com/items?itemName=lmn451.git-log-s)** | Search commit history, paginate results, and jump to remote commits. [Source](https://github.com/lmn451/git-search) |
+| **[Screencast](https://subagentura.tech/screencast/)** | Record your screen with recovery, diagnostics, and export workflows. [Source](https://github.com/lmn451/screencast) |
+| **[Smart Life Webapp](https://smart-life-webapp.pages.dev)** | Control Smart Life devices through an installable Vue PWA and a region-aware Cloudflare API proxy. [Source](https://github.com/lmn451/smart-life-webapp) |
+
+## Let's build tools people rely on.
+
+I'm open to opportunities in **developer infrastructure, editors, and AI tooling**.
+
+If you're working on making complex software easier to understand and change, I'd like to hear about it.
+
+**[hello@subagentura.tech](mailto:hello@subagentura.tech)** · [Portfolio](https://subagentura.tech)
