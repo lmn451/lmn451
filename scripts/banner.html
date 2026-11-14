@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lmn451 / ASCII constellation source</title>
+<style>
+  :root { color-scheme: dark; --background: #10191d; --text: #b8c4c6; }
+  body { margin: 0; background: var(--background); color: var(--text); }
+  canvas { display: block; width: 100%; height: auto; max-width: 1200px; }
+</style>
+<canvas width="1200" height="360" role="img" aria-label="lmn451. Tools for understanding code. A rotating three-dimensional network of ASCII code symbols."></canvas>
+<script>
+'use strict';
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
+const TAU = Math.PI * 2;
+const DURATION = 16;
+const palette = {
+  background: '#10191d', grid: '#1b292e', white: '#f1f4ee',
+  lime: '#b7ee83', muted: '#829397', text: '#b8c4c6',
+};
+const glyphs = ['{}', '[]', '<>', '::', '()', '//', '=>', 'fn'];
+// Evenly distributed, deterministic points, not random noise.
+const nodes = Array.from({ length: 42 }, (_, index) => {
+  const y = 1 - (index / 41) * 2;
+  const radius = Math.sqrt(1 - y * y);
+  const angle = index * Math.PI * (3 - Math.sqrt(5));
+  return { x: Math.cos(angle) * radius, y, z: Math.sin(angle) * radius, glyph: glyphs[index % glyphs.length] };
+});
+const edges = [];
+for (let a = 0; a < nodes.length; a++) {
+  for (let b = a + 1; b < nodes.length; b++) {
+    const distance = Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y, nodes[a].z - nodes[b].z);
+    if (distance < 0.62) edges.push([a, b]);
+  }
+}
+function project(point, angle) {
+  const x = point.x * Math.cos(angle) + point.z * Math.sin(angle);
+  const depth = -point.x * Math.sin(angle) + point.z * Math.cos(angle);
+  const tilt = -0.21;
+  const y = point.y * Math.cos(tilt) - depth * Math.sin(tilt);
+  const z = point.y * Math.sin(tilt) + depth * Math.cos(tilt);
+  const perspective = 3.8 / (3.8 - z * 0.45);
+  return { x: 945 + x * 176 * perspective, y: 177 + y * 125 * perspective, z, perspective };
+}
+function segment(a, b, color, width = 1) {
+  ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+  ctx.strokeStyle = color; ctx.lineWidth = width; ctx.stroke();
+}
+function text(value, x, y, size, color, weight = 400, font = 'Arial, Helvetica, sans-serif') {
+  ctx.font = `${weight} ${size}px ${font}`;
+  ctx.fillStyle = color; ctx.fillText(value, x, y);
+}
+function drawFrame(seconds = 0) {
+  // Canonicalize the seam so frame(0) and frame(16) are identical.
+  const phase = ((seconds % DURATION) + DURATION) % DURATION / DURATION;
+  const angle = phase * TAU + 0.3;
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = palette.background;
+  ctx.fillRect(0, 0, 1200, 360);
+  ctx.save();
+  ctx.beginPath(); ctx.rect(710, 0, 490, 360); ctx.clip();
+  for (let x = 720; x < 1200; x += 28) segment({ x, y: 0 }, { x, y: 360 }, palette.grid, 0.6);
+  for (let y = 10; y < 360; y += 28) segment({ x: 710, y }, { x: 1200, y }, palette.grid, 0.6);
+  // Small stationary plotting marks frame the moving object.
+  for (const [x, y] of [[747, 37], [1146, 37], [747, 316], [1146, 316]]) {
+    segment({ x: x - 4, y }, { x: x + 4, y }, '#3a4d4f');
+    segment({ x, y: y - 4 }, { x, y: y + 4 }, '#3a4d4f');
+  }
+  // An orbital ASCII path gives a clear foreground/background relationship.
+  const orbit = Array.from({ length: 92 }, (_, i) => {
+    const theta = i / 92 * TAU;
+    const p = project({ x: Math.cos(theta) * 1.17, y: Math.sin(theta) * 0.23, z: Math.sin(theta) * 1.17 }, angle);
+    return { ...p, glyph: i % 8 === 0 ? '+' : '.' };
+  });
+  const points = nodes.map((n, i) => ({ ...project(n, angle), index: i, glyph: n.glyph }));
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  function drawOrbit(front) {
+    for (const p of orbit.filter(p => (p.z >= 0) === front)) {
+      ctx.globalAlpha = front ? 0.58 : 0.2;
+      text(p.glyph, p.x, p.y, 12, palette.lime, 400, 'Menlo, Consolas, monospace');
+    }
+  }
+  drawOrbit(false);
+  // Depth-sorted mesh with short gaps around every glyph.
+  for (const [a, b] of [...edges].sort((e1, e2) => points[e1[0]].z + points[e1[1]].z - points[e2[0]].z - points[e2[1]].z)) {
+    const p = points[a], q = points[b];
+    const frontness = (p.z + q.z + 2) / 4;
+    ctx.globalAlpha = 0.10 + frontness * 0.26;
+    const start = { x: p.x + (q.x - p.x) * 0.18, y: p.y + (q.y - p.y) * 0.18 };
+    const end = { x: p.x + (q.x - p.x) * 0.82, y: p.y + (q.y - p.y) * 0.82 };
+    segment(start, end, palette.lime, 0.8);
+    // A few traveling characters trace edges without lighting up the whole graph.
+    if ((a * 7 + b) % 13 === 0) {
+      const travel = (phase * 2 + a / nodes.length) % 1;
+      const intensity = Math.sin(travel * Math.PI);
+      ctx.globalAlpha = intensity * (0.3 + frontness * 0.6);
+      text('·', start.x + (end.x - start.x) * travel, start.y + (end.y - start.y) * travel, 17, palette.white, 700, 'Menlo, Consolas, monospace');
+    }
+  }
+  for (const p of points.sort((a, b) => a.z - b.z)) {
+    const frontness = (p.z + 1) / 2;
+    ctx.globalAlpha = 0.24 + frontness * 0.76;
+    text(p.glyph, p.x, p.y, 11 + frontness * 5, p.index % 7 === 0 ? palette.white : palette.lime, 400, 'Menlo, Consolas, monospace');
+  }
+  drawOrbit(true);
+  ctx.restore();
+  ctx.globalAlpha = 1;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = palette.lime; ctx.fillRect(0, 0, 1200, 2);
+  text('lmn451', 56, 66, 23, palette.lime, 700);
+  text('/ software engineer', 145, 66, 23, palette.muted);
+  text('Tools for', 52, 145, 52, palette.white, 700);
+  text('understanding code.', 52, 205, 52, palette.white, 700);
+  text('Language servers. Editors. Agents.', 56, 260, 20, palette.text);
+  text('Built in Rust & TypeScript', 56, 315, 17, palette.muted);
+  ctx.textAlign = 'center';
+  text('code  /  context  /  change', 945, 342, 12, palette.muted, 400, 'Menlo, Consolas, monospace');
+  ctx.textAlign = 'left';
+}
+window.banner = { drawFrame, duration: DURATION, canvas, nodes: nodes.length, edges: edges.length };
+drawFrame(0);
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let frameId;
+const start = performance.now();
+function animate(now) {
+  drawFrame((now - start) / 1000);
+  frameId = requestAnimationFrame(animate);
+}
+function syncPlayback() {
+  cancelAnimationFrame(frameId);
+  if (!new URLSearchParams(location.search).has('capture') && !reducedMotion.matches) frameId = requestAnimationFrame(animate);
+  else drawFrame(0);
+}
+reducedMotion.addEventListener('change', syncPlayback);
+syncPlayback();
+</script>
+</html>

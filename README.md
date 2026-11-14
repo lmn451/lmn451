@@ -1,6 +1,11 @@
 <p>
-  <img src="./assets/banner.svg" alt="lmn451. Tools for understanding code. Language servers, editor integrations, and observable agent workflows." width="1200" />
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/banner-static.png" />
+    <img src="./assets/banner.gif" alt="lmn451. Tools for understanding code. Language servers, editor integrations, and observable agent workflows." width="1200" height="360" />
+  </picture>
 </p>
+
+[View static banner](./assets/banner-static.png)
 
 # Make unfamiliar code feel navigable.
 
@@ -8,7 +13,7 @@ I'm **lmn451**, a senior software engineer building tools that help developers a
 
 My work connects **language intelligence**, **editor experience**, and **observable agent workflows**, primarily in **Rust and TypeScript**.
 
-**[Explore my work](https://subagentura.tech)** · **[Get in touch](mailto:hello@subagentura.tech)** · [All repositories](https://github.com/lmn451?tab=repositories)
+**[subagentura.tech](https://subagentura.tech)** · **[Get in touch](mailto:hello@subagentura.tech)** · [All repositories](https://github.com/lmn451?tab=repositories)
 
 ---
 
@@ -48,19 +53,19 @@ Multi-agent work shouldn't mean losing the thread. pi-subagentura gives the Pi c
 
 ---
 
-**03 / Code-aware analysis**
+**03 / Recording workflows**
 
-## JSX Prop Lookup
+## Screencast / ScreenSilo
 
-**Before changing a component API, understand who depends on it.**
+**Record the walkthrough. Keep the file yours.**
 
-An AST-powered MCP server for exploring React and TypeScript prop usage. Query the code's structure before a refactor instead of relying on text matches alone.
+A local-first browser recorder for capturing a tab, window, or screen without an account or upload service.
 
-- **Find:** component APIs and prop usages across JavaScript and TypeScript projects.
-- **Inspect:** TypeScript interface information alongside component results.
-- **Audit:** component instances for missing required props.
+- **Capture:** choose the surface and optional audio for your walkthrough.
+- **Keep control:** recordings stay in browser storage, with recovery and diagnostics tools.
+- **Share on your terms:** preview locally and download a WebM file.
 
-[Read the source](https://github.com/lmn451/jsx-prop-lookup-mcp-server) · [Install from npm](https://www.npmjs.com/package/jsx-prop-lookup-mcp-server)
+[Explore Screencast](https://subagentura.tech/screencast/) · [Read the source](https://github.com/lmn451/screencast)
 
 ---
 
@@ -69,7 +74,7 @@ An AST-powered MCP server for exploring React and TypeScript prop usage. Query t
 | Project | What it helps you do |
 | :--- | :--- |
 | **[Git Search for VS Code](https://marketplace.visualstudio.com/items?itemName=lmn451.git-log-s)** | Search commit history, paginate results, and jump to remote commits. [Source](https://github.com/lmn451/git-search) |
-| **[Screencast](https://subagentura.tech/screencast/)** | Record your screen with recovery, diagnostics, and export workflows. [Source](https://github.com/lmn451/screencast) |
+| **[JSX Prop Lookup](https://www.npmjs.com/package/jsx-prop-lookup-mcp-server)** | AST-based component prop analysis for React and TypeScript through MCP. [Source](https://github.com/lmn451/jsx-prop-lookup-mcp-server) |
 | **[Smart Life Webapp](https://smart-life-webapp.pages.dev)** | Control Smart Life devices through an installable Vue PWA and a region-aware Cloudflare API proxy. [Source](https://github.com/lmn451/smart-life-webapp) |
 
 ## Let's build tools people rely on.
