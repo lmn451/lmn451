@@ -1,8 +1,6 @@
 <p>
-  <img src="./assets/code-trace.svg" alt="lmn451, Rust and TypeScript software engineer. An illustrated CSS workflow follows a custom property from reference to definition, then renames it across two files." width="1200" />
+  <img src="./assets/code-trace.svg" alt="lmn451, Rust and TypeScript software engineer. An illustrated agent workflow plans a task, delegates implementation and tests to parallel workers, and verifies their results." width="1200" />
 </p>
-
-[View static banner](./assets/code-trace-static.svg)
 
 # lmn451 · Software engineering
 

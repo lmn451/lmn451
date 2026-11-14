@@ -1,97 +1,82 @@
 <svg data-static="true" id="play" xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240" role="img" aria-labelledby="title description">
-  <title id="title">lmn451 / Follow the code</title>
-  <desc id="description">An illustrated CSS workflow: follow a custom property from its use to its definition, resolve its color, and rename it across two files. This is a conceptual animation, not recorded editor footage.</desc>
+  <title id="title">lmn451 / Orchestrate the work</title>
+  <desc id="description">An illustrated agent workflow: a coordinator plans a task, delegates implementation and tests to parallel workers, then verifies their results. Conceptual animation, not a live session or recorded product footage.</desc>
   <style>
     .sans { font-family: Arial, Helvetica, sans-serif; }
     .mono { font-family: Menlo, Consolas, monospace; }
     .ink { fill: #eeeae2; }
     .muted { fill: #89958e; }
     .token { fill: #bcd6c3; }
-    .value { fill: #dfba94; }
-    .before { opacity: 1; animation: original-name 16s linear infinite; }
-    .after { opacity: 0; animation: renamed 16s linear infinite; }
-    .trace { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; animation: follow 8s ease-in-out infinite; }
-    .reference-focus { opacity: .12; animation: reference-focus 8s ease-in-out infinite; }
-    .definition-focus { opacity: 0; animation: definition-focus 8s ease-in-out infinite; }
-    .rename-focus { opacity: 0; animation: rename-focus 8s ease-in-out infinite; }
-    .resolution { opacity: 0; animation: resolution 8s ease-in-out infinite; }
-    .stage-reference { fill: #d9b582; animation: stage-reference 8s linear infinite; }
-    .stage-definition { fill: #89958e; animation: stage-definition 8s linear infinite; }
-    .stage-rename { fill: #89958e; animation: stage-rename 8s linear infinite; }
-    @keyframes original-name { 0%,33%,90%,100% {opacity:1} 38%,85% {opacity:0} }
-    @keyframes renamed { 0%,33%,90%,100% {opacity:0} 38%,85% {opacity:1} }
-    @keyframes follow {
-      0%,8% {stroke-dashoffset:1;opacity:0}
-      12% {stroke-dashoffset:1;opacity:.85}
-      38%,61% {stroke-dashoffset:0;opacity:.85}
-      77%,100% {stroke-dashoffset:0;opacity:0}
-    }
-    @keyframes reference-focus { 0%,22% {opacity:.12} 34%,100% {opacity:0} }
-    @keyframes definition-focus { 0%,27%,75%,100% {opacity:0} 35%,60% {opacity:.12} }
-    @keyframes rename-focus { 0%,61%,94%,100% {opacity:0} 68%,83% {opacity:.16} }
-    @keyframes resolution { 0%,34%,78%,100% {opacity:0} 42%,64% {opacity:1} }
-    @keyframes stage-reference { 0%,26%,96%,100% {fill:#d9b582} 33%,89% {fill:#89958e} }
-    @keyframes stage-definition { 0%,26%,70%,100% {fill:#89958e} 34%,61% {fill:#d9b582} }
-    @keyframes stage-rename { 0%,61%,96%,100% {fill:#89958e} 70%,88% {fill:#d9b582} }
-    /* Static export and no-motion state remain useful without any animation. */
+    .accent { fill: #d9b582; }
+    .panel { fill: #1b211e; stroke: #364239; }
+    .wire { fill: none; stroke: #465349; stroke-width: 1.5; }
+    .flow { fill: none; stroke: #d9b582; stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; animation: dispatch 12s ease-in-out infinite; }
+    .return { stroke: #bcd6c3; animation-name: collect; }
+    .stage-plan { fill: #d9b582; animation: plan 12s linear infinite; }
+    .stage-delegate { fill: #89958e; animation: delegate 12s linear infinite; }
+    .stage-verify { fill: #89958e; animation: verify 12s linear infinite; }
+    .working { opacity: 1; animation: working 12s linear infinite; }
+    .complete { opacity: 0; animation: complete 12s linear infinite; }
+    .result { opacity: 0; animation: result 12s linear infinite; }
+    @keyframes dispatch { 0%,12% {stroke-dashoffset:1;opacity:0} 18% {stroke-dashoffset:1;opacity:1} 38%,75% {stroke-dashoffset:0;opacity:1} 92%,100% {stroke-dashoffset:0;opacity:0} }
+    @keyframes collect { 0%,45% {stroke-dashoffset:1;opacity:0} 50% {stroke-dashoffset:1;opacity:1} 68%,82% {stroke-dashoffset:0;opacity:1} 94%,100% {stroke-dashoffset:0;opacity:0} }
+    @keyframes plan { 0%,20%,96%,100% {fill:#d9b582} 28%,90% {fill:#89958e} }
+    @keyframes delegate { 0%,20%,64%,100% {fill:#89958e} 28%,56% {fill:#d9b582} }
+    @keyframes verify { 0%,56%,96%,100% {fill:#89958e} 64%,88% {fill:#d9b582} }
+    @keyframes working { 0%,48%,96%,100% {opacity:1} 56%,88% {opacity:0} }
+    @keyframes complete { 0%,48%,96%,100% {opacity:0} 56%,88% {opacity:1} }
+    @keyframes result { 0%,64%,96%,100% {opacity:0} 72%,88% {opacity:1} }
     svg[data-static="true"] .motion { animation: none !important; }
-    svg[data-static="true"] .trace { stroke-dashoffset: 0; opacity: .6; }
-    svg[data-static="true"] .definition-focus { opacity: .10; }
-    svg[data-static="true"] .resolution { opacity: 1; }
+    svg[data-static="true"] .flow { stroke-dashoffset: 0; opacity: .7; }
+    svg[data-static="true"] .working { opacity: 0; }
+    svg[data-static="true"] .complete, svg[data-static="true"] .result { opacity: 1; }
     @media (prefers-reduced-motion: reduce) {
       svg:not(:target) .motion { animation: none !important; }
-      svg:not(:target) .trace { stroke-dashoffset: 0; opacity: .6; }
-      svg:not(:target) .definition-focus { opacity: .10; }
-      svg:not(:target) .resolution { opacity: 1; }
+      svg:not(:target) .flow { stroke-dashoffset: 0; opacity: .7; }
+      svg:not(:target) .working { opacity: 0; }
+      svg:not(:target) .complete, svg:not(:target) .result { opacity: 1; }
     }
   </style>
   <rect x=".5" y=".5" width="1199" height="239" rx="8" fill="#151918" stroke="#303a33"/>
   <path d="M310 32V208" stroke="#303a33"/>
-
   <g class="sans">
     <text x="40" y="47" font-size="14" class="muted">software engineer</text>
     <text x="38" y="108" font-size="44" font-weight="700" class="ink">lmn451</text>
     <text x="40" y="145" font-size="17" class="ink">Rust / TypeScript</text>
-    <text x="40" y="197" font-size="12" class="muted">Language intelligence. Developer tools.</text>
+    <text x="40" y="181" font-size="12" class="muted">Agent orchestration.</text>
+    <text x="40" y="199" font-size="12" class="muted">Language intelligence. Developer tools.</text>
   </g>
-
   <g class="sans" font-size="12">
-    <text x="352" y="34" class="motion stage-reference">reference</text>
-    <text x="454" y="34" class="motion stage-definition">definition</text>
-    <text x="562" y="34" class="motion stage-rename">rename</text>
-    <text x="1158" y="34" text-anchor="end" class="muted">illustrated workflow</text>
+    <text x="352" y="34" class="motion stage-plan">01 plan</text>
+    <text x="454" y="34" class="motion stage-delegate">02 delegate</text>
+    <text x="578" y="34" class="motion stage-verify">03 verify</text>
+    <text x="1158" y="34" text-anchor="end" class="muted">illustrated agent workflow</text>
   </g>
-  <g class="mono" font-size="13" fill="#a4aea7">
-    <text x="352" y="72">tokens.css</text>
-    <text x="785" y="72">button.css</text>
+  <path class="wire" d="M530 130H568V92H610 M568 130V174H610 M810 92H850V130H894 M810 174H850V130"/>
+  <path class="motion flow" pathLength="1" d="M530 130H568V92H610 M568 130V174H610"/>
+  <path class="motion flow return" pathLength="1" d="M810 92H850V130H894 M810 174H850V130"/>
+  <rect x="352" y="89" width="178" height="82" rx="6" class="panel"/>
+  <rect x="610" y="61" width="200" height="62" rx="6" class="panel"/>
+  <rect x="610" y="143" width="200" height="62" rx="6" class="panel"/>
+  <rect x="894" y="89" width="264" height="82" rx="6" class="panel"/>
+  <g class="mono">
+    <text x="368" y="112" font-size="10" class="muted">COORDINATOR</text>
+    <text x="368" y="138" font-size="16" class="ink">scope → tasks</text>
+    <text x="368" y="157" font-size="10" class="muted">goal · scoped context</text>
+    <text x="626" y="83" font-size="10" class="muted">WORKER / 01</text>
+    <text x="626" y="106" font-size="15" class="token">implement</text>
+    <text x="790" y="105" text-anchor="end" font-size="12" class="accent motion working">...</text>
+    <text x="790" y="105" text-anchor="end" font-size="12" class="token motion complete">✓</text>
+    <text x="626" y="165" font-size="10" class="muted">WORKER / 02</text>
+    <text x="626" y="188" font-size="15" class="token">write tests</text>
+    <text x="790" y="187" text-anchor="end" font-size="12" class="accent motion working">...</text>
+    <text x="790" y="187" text-anchor="end" font-size="12" class="token motion complete">✓</text>
+    <text x="910" y="112" font-size="10" class="muted">FEEDBACK LOOP</text>
+    <text x="910" y="138" font-size="16" class="ink">review → verify</text>
+    <text x="910" y="157" font-size="10" class="muted">inspect results · iterate</text>
   </g>
-  <path d="M352 84H714 M785 84H1158" stroke="#303a33"/>
-
-  <rect x="938" y="124" width="105" height="28" rx="3" fill="#d9b582" class="motion reference-focus"/>
-  <rect x="372" y="124" width="105" height="28" rx="3" fill="#d9b582" class="motion definition-focus"/>
-  <g fill="#d9b582" class="motion rename-focus">
-    <rect x="372" y="124" width="105" height="28" rx="3"/>
-    <rect x="938" y="124" width="105" height="28" rx="3"/>
-  </g>
-
-  <g class="mono" font-size="20" xml:space="preserve">
-    <text x="352" y="115"><tspan class="token">:root</tspan><tspan class="ink"> {</tspan></text>
-    <text x="352" y="178" class="ink">}</text>
-    <text x="785" y="115"><tspan class="token">.button</tspan><tspan class="ink"> {</tspan></text>
-    <text x="785" y="178" class="ink">}</text>
-    <g class="motion before">
-      <text x="376" y="145"><tspan class="token">--accent</tspan><tspan class="ink">: </tspan><tspan class="value">#b7ee83</tspan><tspan class="ink">;</tspan></text>
-      <text x="809" y="145"><tspan class="ink">color: </tspan><tspan class="value">var</tspan><tspan class="ink">(</tspan><tspan class="token">--accent</tspan><tspan class="ink">);</tspan></text>
-    </g>
-    <g class="motion after">
-      <text x="376" y="145"><tspan class="token">--brand</tspan><tspan class="ink">: </tspan><tspan class="value">#b7ee83</tspan><tspan class="ink">;</tspan></text>
-      <text x="809" y="145"><tspan class="ink">color: </tspan><tspan class="value">var</tspan><tspan class="ink">(</tspan><tspan class="token">--brand</tspan><tspan class="ink">);</tspan></text>
-    </g>
-  </g>
-
-  <path d="M991 158V182Q991 195 978 195H429Q416 195 416 182V158" fill="none" stroke="#d9b582" stroke-width="1.5" pathLength="1" class="motion trace"/>
-  <g class="motion resolution">
-    <rect x="644" y="211" width="10" height="10" rx="2" fill="#b7ee83"/>
-    <text x="663" y="220" class="mono" font-size="12" fill="#c5cec7">#b7ee83</text>
+  <g class="motion result">
+    <circle cx="905" cy="198" r="3" fill="#b7ee83"/>
+    <text x="916" y="202" class="mono token" font-size="10">checks passed · ready to integrate</text>
   </g>
 </svg>

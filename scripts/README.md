@@ -2,7 +2,7 @@
 
 ## Current vector source
 
-Edit `assets/code-trace.svg` from the repository root. It is a self-contained **1200 × 240 (5:1)** SVG with a CSS-animated illustration of following a CSS custom-property reference to its definition, resolving its color, and renaming it across two files. This is **an illustrated workflow, not recorded editor footage** or a product screenshot.
+Edit `assets/code-trace.svg` from the repository root. It is a self-contained **1200 × 240 (5:1)** SVG with a CSS-animated illustration of a coordinator planning a task, dispatching implementation and tests to parallel workers, and verifying their results. This is **an illustrated workflow, not recorded editor footage** or a product screenshot.
 
 The SVG uses no JavaScript, external resources, or external animation service. Its shapes, text, and animation rules live in one editable file. Keep the title and description accurate when changing the illustration.
 
@@ -17,7 +17,7 @@ The build needs Node.js. It reads `assets/code-trace.svg`, checks that the sourc
 
 ### Motion and embedding
 
-The source's `prefers-reduced-motion: reduce` rules disable animation while retaining a visible reference trace and resolved color. The static derivative selects that useful still independently of the motion preference. Keep an **explicit static-image link** in the profile so readers can choose it directly.
+The source's `prefers-reduced-motion: reduce` rules disable animation while retaining visible delegation paths, completed workers, and the verification result. The static derivative selects that useful still independently of the motion preference. The profile intentionally has no separate static-banner link.
 
 Embed the animated SVG with an image width of `1200` and **no fixed HTML image height**. Its intrinsic SVG dimensions establish the 5:1 aspect ratio, allowing narrower profile columns to scale proportionally. Do not remove the SVG's intrinsic height to achieve this.
 
@@ -30,7 +30,7 @@ npm install --no-save --package-lock=false playwright@1.62.1
 node scripts/test-profile.cjs
 ```
 
-The checks cover image embedding at 1280, 912, and 390 pixels, correct 5:1 sizing, pixel changes during explicit playback, an unchanged static image, reference/resolve/rename stages, and repeatability. A negative control deliberately adds a fixed image height to catch distortion.
+The checks cover image embedding at 1280, 912, and 390 pixels, correct 5:1 sizing, pixel changes during explicit playback, an unchanged static image, plan/delegate/verify stages, and repeatability. A negative control deliberately adds a fixed image height to catch distortion.
 
 On the tested macOS Chrome setup, embedded SVGs followed the device motion setting instead of Playwright's page-level media emulation. Tests therefore exercise explicit playback as an embedded image and both default media preferences in the standalone SVG document. This is local Chrome coverage, not proof of GitHub production behavior. GitHub production validation has not been established.
 

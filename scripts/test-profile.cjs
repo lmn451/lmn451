@@ -11,7 +11,7 @@ async function main() {
   const readme = await fs.readFile(path.join(root, 'README.md'), 'utf8');
   const header = readme.match(/^<p>[\s\S]*?<\/p>/)?.[0];
   assert.ok(header, 'README must contain a banner');
-  assert.ok(readme.includes('[View static banner](./assets/code-trace-static.svg)'));
+  assert.ok(!/View static banner/i.test(readme), 'Do not restore the removed static banner link');
   assert.ok(!header.includes('#play'), 'Default embedding must respect device motion preferences');
   const source = await fs.readFile(path.join(root, 'assets/code-trace.svg'), 'utf8');
   const still = await fs.readFile(path.join(root, 'assets/code-trace-static.svg'), 'utf8');
@@ -54,7 +54,7 @@ async function main() {
           // actual image mode, and test both default preferences directly below.
           await img.evaluate(i => { i.src += '#play'; return i.decode(); });
           const before = await img.screenshot({ animations: 'allow' });
-          await page.waitForTimeout(1800);
+          await page.waitForTimeout(3600);
           assert.ok(!before.equals(await img.screenshot({ animations: 'allow' })), 'Opt-in SVG must visibly animate as an image');
           await img.evaluate(i => { i.src = '/assets/code-trace-static.svg#play'; return i.decode(); });
           const paused = await img.screenshot({ animations: 'allow' });
@@ -77,16 +77,16 @@ async function main() {
         const sample = time => page.evaluate(t => {
           for (const animation of document.getAnimations()) { animation.pause(); animation.currentTime = t; }
           const opacity = selector => Number(getComputedStyle(document.querySelector(selector)).opacity);
-          return { original: opacity('.before'), renamed: opacity('.after'), resolved: opacity('.resolution') };
+          return { working: opacity('.working'), complete: opacity('.complete'), result: opacity('.result') };
         }, time);
-        assert.deepEqual(await sample(0), { original: 1, renamed: 0, resolved: 0 });
-        assert.deepEqual(await sample(4000), { original: 1, renamed: 0, resolved: 1 });
-        assert.deepEqual(await sample(6400), { original: 0, renamed: 1, resolved: 0 });
+        assert.deepEqual(await sample(0), { working: 1, complete: 0, result: 0 });
+        assert.deepEqual(await sample(4800), { working: 1, complete: 0, result: 0 });
+        assert.deepEqual(await sample(9600), { working: 0, complete: 1, result: 1 });
         const first = await page.screenshot();
-        await sample(22400);
-        assert.ok(first.equals(await page.screenshot()), 'The 16-second animation must repeat seamlessly');
+        await sample(21600);
+        assert.ok(first.equals(await page.screenshot()), 'The 12-second animation must repeat seamlessly');
       } else {
-        assert.equal(await page.locator('.resolution').evaluate(e => getComputedStyle(e).opacity), '1');
+        assert.equal(await page.locator('.result').evaluate(e => getComputedStyle(e).opacity), '1');
         await page.goto(base + '/assets/code-trace.svg#play');
         assert.ok(await page.evaluate(() => document.getAnimations().length > 0), 'Explicit Play must override reduced motion');
       }
