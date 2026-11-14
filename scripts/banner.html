@@ -8,13 +8,26 @@
   body { margin: 0; background: var(--background); color: var(--text); }
   canvas { display: block; width: 100%; height: auto; max-width: 1200px; }
 </style>
-<canvas width="1200" height="360" role="img" aria-label="lmn451. Tools for understanding code. An interwoven, three-dimensional ASCII ribbon sculpture with depth shading and orbital traces."></canvas>
+<canvas width="1600" height="480" role="img" aria-label="lmn451. Tools for understanding code. Code fragments assemble into an illuminated three-dimensional ASCII sculpture, then dissolve into code."></canvas>
 <script>
 'use strict';
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
 const TAU = Math.PI * 2;
-const DURATION = 16;
+const DURATION = 12;
+const SCALE = canvas.width / 1200;
+ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+const smooth = (a, b, value) => {
+  const t = Math.max(0, Math.min(1, (value - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+};
+function choreography(seconds) {
+  const time = ((seconds % DURATION) + DURATION) % DURATION;
+  // Start with the complete sculpture so paused GitHub previews look intentional.
+  const beat = (time + 4.5) % DURATION;
+  const assembly = smooth(0.6, 3.6, beat) * (1 - smooth(8.2, 11.1, beat));
+  return { phase: time / DURATION, assembly, stage: beat < 3.6 ? 0 : beat < 8.2 ? 1 : 2 };
+}
 const palette = {
   background: '#10191d', grid: '#1b292e', white: '#f1f4ee',
   lime: '#b7ee83', muted: '#829397', text: '#b8c4c6',
@@ -46,6 +59,13 @@ for (let u = 0; u < 560; u++) {
     surface.push({ position, normal: lightingNormal, t, phi });
   }
 }
+const codeTokens = ['fn', '{}', '[]', '=>', '::', '()', '<>', 'if', '0x', '//'];
+const fragments = Array.from({ length: 220 }, (_, i) => {
+  const sample = surface[(i * 157) % surface.length];
+  const hash = seed => { const n = Math.sin(seed * 127.1 + 311.7) * 43758.5453; return n - Math.floor(n); };
+  return { sample, glyph: codeTokens[i % codeTokens.length], x: 752 + hash(i + 1) * 387,
+    y: 45 + hash(i + 221) * 238, depth: hash(i + 441), arc: (hash(i + 661) - 0.5) * 80 };
+});
 const COLS = 112, ROWS = 52, CELL_X = 4.05, CELL_Y = 5.65;
 const X0 = 715, Y0 = 19;
 const depthBuffer = new Float32Array(COLS * ROWS);
@@ -80,9 +100,13 @@ function line(x1, y1, x2, y2, color, width = 1) {
   ctx.strokeStyle = color; ctx.lineWidth = width; ctx.stroke();
 }
 function drawFrame(seconds = 0) {
-  const phase = ((seconds % DURATION) + DURATION) % DURATION / DURATION;
-  const turn = phase * TAU;
+  const { phase, assembly, stage } = choreography(seconds);
+  // Brief, eased beauty holds at the seam make the loop breathe and keep the
+  // higher-resolution GIF compact without reducing playback frame rate.
+  const turn = smooth(0.06, 0.94, phase) * TAU;
   const rotate = rotation(turn + 0.38, 0.38 + 0.18 * Math.sin(turn), -0.24 + 0.12 * Math.cos(turn));
+  const surfaceOpacity = smooth(0.32, 0.92, assembly);
+  const fragmentsOpacity = 1 - smooth(0.50, 0.98, assembly);
   ctx.globalAlpha = 1;
   ctx.fillStyle = palette.background; ctx.fillRect(0, 0, 1200, 360);
   ctx.save(); ctx.beginPath(); ctx.rect(710, 3, 490, 357); ctx.clip();
@@ -96,14 +120,31 @@ function drawFrame(seconds = 0) {
       const rotated = rotate([3.45 * Math.cos(t), 0.34 * Math.sin(t), 2.9 * Math.sin(t)]);
       if ((rotated[2] >= 0) !== front) continue;
       const p = project(rotated);
-      ctx.globalAlpha = front ? 0.4 : 0.15;
+      ctx.globalAlpha = (front ? 0.32 : 0.10) * (0.3 + assembly * 0.7);
       text(i % 15 === 0 ? '+' : '.', p.x, p.y, 7, palette.lime, 400, 'Menlo, Consolas, monospace');
     }
   }
   orbit(false);
+  // Each fragment has a persistent destination and follows an eased arc. Nothing
+  // is randomized per frame, so the scattered state and the loop seam are stable.
+  function drawFragments(front) {
+    if (fragmentsOpacity < 0.001) return;
+    for (const fragment of fragments) {
+      const p = project(rotate(fragment.sample.position));
+      if ((p.z >= 0) !== front) continue;
+      const loose = 1 - assembly;
+      const x = fragment.x * loose + p.x * assembly + Math.sin(assembly * Math.PI) * fragment.arc;
+      const y = fragment.y * loose + p.y * assembly + Math.sin(turn + fragment.depth * TAU) * loose * 7;
+      ctx.globalAlpha = fragmentsOpacity * (0.15 + fragment.depth * 0.55);
+      text(fragment.glyph, x, y, 5.5 + fragment.depth * 2.4, fragment.depth > 0.8 ? palette.white : palette.lime, 400, 'Menlo, Consolas, monospace');
+    }
+  }
+  drawFragments(false);
   depthBuffer.fill(-Infinity); luminanceBuffer.fill(0); materialBuffer.fill(0);
-  for (const sample of surface) {
-    const position = rotate(sample.position), normal = rotate(sample.normal);
+  for (const sample of surfaceOpacity > 0.001 ? surface : []) {
+    const spread = (1 - assembly) ** 2;
+    const displaced = sample.position.map((value, i) => value + spread * Math.sin(sample.t * 3 + i * 2) * 0.75);
+    const position = rotate(displaced), normal = rotate(sample.normal);
     const p = project(position);
     const col = Math.floor((p.x - X0) / CELL_X), row = Math.floor((p.y - Y0) / CELL_Y);
     if (col < 0 || col >= COLS || row < 0 || row >= ROWS) continue;
@@ -115,11 +156,11 @@ function drawFrame(seconds = 0) {
     const rim = Math.pow(1 - Math.abs(normal[2]), 3);
     const specular = Math.pow(Math.max(0, dot(normal, halfVector)), 18);
     // Narrow traveling bands follow the surface rather than blinking in space.
-    const signal = Math.pow(0.5 + 0.5 * Math.cos(sample.t * 6 - turn * 2 + sample.phi), 14);
-    luminanceBuffer[index] = Math.min(1, 0.12 + diffuse * 0.55 + fill * 0.12 + rim * 0.15 + specular * 0.25 + signal * 0.13);
+    const signal = Math.pow(0.5 + 0.5 * Math.cos(sample.t * 3 - turn * 2 + sample.phi * 0.25), 20) * smooth(0.85, 1, assembly);
+    luminanceBuffer[index] = Math.min(1, 0.14 + diffuse * 0.53 + fill * 0.12 + rim * 0.18 + specular * 0.25 + signal * 0.20);
     materialBuffer[index] = signal;
   }
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = surfaceOpacity;
   ctx.font = '6px Menlo, Consolas, monospace';
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
@@ -133,8 +174,9 @@ function drawFrame(seconds = 0) {
       ctx.fillText(glyph, X0 + col * CELL_X, Y0 + row * CELL_Y);
     }
   }
+  drawFragments(true);
   orbit(true);
-  ctx.globalAlpha = 0.45;
+  ctx.globalAlpha = 0.45 * (0.4 + assembly * 0.6);
   // Three small callouts give the object an engineering drawing vocabulary.
   ctx.textAlign = 'left';
   text('parse', 733, 33, 9, palette.text, 400, 'Menlo, Consolas, monospace');
@@ -153,10 +195,11 @@ function drawFrame(seconds = 0) {
   text('Language servers. Editors. Agents.', 56, 260, 20, palette.text);
   text('Built in Rust & TypeScript', 56, 315, 17, palette.muted);
   ctx.textAlign = 'center';
-  text('code  /  context  /  change', 944, 342, 12, palette.muted, 400, 'Menlo, Consolas, monospace');
+  const stages = ['assemble', 'illuminate', 'dissolve'];
+  stages.forEach((label, index) => text(label, 828 + index * 116, 342, 11, stage === index ? palette.lime : palette.muted, 400, 'Menlo, Consolas, monospace'));
   ctx.textAlign = 'left';
 }
-window.banner = { drawFrame, duration: DURATION, canvas, surfaceSamples: surface.length };
+window.banner = { drawFrame, choreography, duration: DURATION, scale: SCALE, canvas, surfaceSamples: surface.length };
 drawFrame(0);
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let frameId;

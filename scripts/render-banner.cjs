@@ -9,7 +9,7 @@ const { spawnSync } = require('node:child_process');
 const { chromium } = require('playwright');
 
 const ROOT = path.resolve(__dirname, '..');
-const FPS = 20;
+const FPS = 25;
 const MAX_BYTES = 5 * 1024 * 1024;
 
 async function main() {
@@ -32,20 +32,24 @@ async function main() {
     await page.evaluate(() => document.fonts.ready);
     const duration = await page.evaluate(() => window.banner.duration);
     const checks = await page.evaluate(() => {
-      const { drawFrame, canvas, duration } = window.banner;
+      const { drawFrame, canvas, duration, scale, choreography } = window.banner;
       const ctx = canvas.getContext('2d');
+      const width = 700 * scale, height = canvas.height;
+      const beats = Array.from({ length: 24 }, (_, i) => choreography(i * duration / 24));
+      const stages = new Set(beats.map(beat => beat.stage));
+      const completeStory = stages.size === 3 && beats.some(b => b.assembly === 0) && beats.some(b => b.assembly === 1);
       drawFrame(0);
       const first = canvas.toDataURL();
-      const left = Array.from(ctx.getImageData(0, 0, 700, 360).data);
+      const left = Array.from(ctx.getImageData(0, 0, width, height).data);
       drawFrame(duration / 4);
       const quarter = canvas.toDataURL();
-      const laterLeft = ctx.getImageData(0, 0, 700, 360).data;
+      const laterLeft = ctx.getImageData(0, 0, width, height).data;
       const staticHeadline = left.every((value, index) => value === laterLeft[index]);
       drawFrame(duration);
-      return { seamless: first === canvas.toDataURL(), animated: first !== quarter, staticHeadline };
+      return { seamless: first === canvas.toDataURL(), animated: first !== quarter, staticHeadline, completeStory };
     });
-    assert.deepEqual(checks, { seamless: true, animated: true, staticHeadline: true });
-    console.log('Validated seamless loop, moving sculpture, and static headline.');
+    assert.deepEqual(checks, { seamless: true, animated: true, staticHeadline: true, completeStory: true });
+    console.log('Validated seamless loop, three-stage choreography, and static high-DPI headline.');
     const count = Math.round(duration * FPS);
     for (let frame = 0; frame < count; frame++) {
       const png = await page.evaluate(seconds => {
@@ -57,11 +61,18 @@ async function main() {
     }
     assert.equal(errors.length, 0, errors.join('\n'));
     await browser.close(); browser = undefined;
+    const palette = path.join(temp, 'palette.png');
+    const quantized = spawnSync('ffmpeg', [
+      '-hide_banner', '-loglevel', 'error', '-y', '-framerate', String(FPS),
+      '-i', path.join(temp, '%04d.png'), '-vf', 'palettegen=max_colors=64:stats_mode=diff',
+      '-frames:v', '1', palette,
+    ], { encoding: 'utf8', timeout: 120000 });
+    if (quantized.status !== 0) throw new Error(quantized.error?.message || quantized.stderr || 'Palette generation failed');
     const gif = path.join(temp, 'banner.gif');
     const encoded = spawnSync('ffmpeg', [
       '-hide_banner', '-loglevel', 'error', '-y', '-framerate', String(FPS),
-      '-i', path.join(temp, '%04d.png'),
-      '-filter_complex', '[0:v]split[a][b];[a]palettegen=max_colors=96:stats_mode=diff[p];[b][p]paletteuse=dither=none:diff_mode=rectangle',
+      '-i', path.join(temp, '%04d.png'), '-i', palette,
+      '-filter_complex', '[0:v][1:v]paletteuse=dither=none:diff_mode=rectangle',
       '-loop', '0', gif,
     ], { encoding: 'utf8', timeout: 120000 });
     if (encoded.status !== 0) throw new Error(encoded.error?.message || encoded.stderr || 'GIF encoding failed');
