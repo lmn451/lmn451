@@ -1,8 +1,5 @@
 <p>
-  <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/banner-static.png" />
-    <img src="./assets/banner.gif" alt="lmn451. Tools for understanding code. Language servers, editor integrations, and observable agent workflows." width="1200" height="360" />
-  </picture>
+  <img src="./assets/banner.gif" alt="lmn451. Tools for understanding code. Language servers, editor integrations, and observable agent workflows." width="1200" />
 </p>
 
 [View static banner](./assets/banner-static.png)

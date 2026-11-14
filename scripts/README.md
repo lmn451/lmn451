@@ -7,7 +7,7 @@ The shape is a closed trefoil with a twisting elliptical cross-section, sampled 
 - `banner.html`: editable canvas source, with a 16-second periodic rotation and a stationary headline.
 - `render-banner.cjs`: deterministic frame capture and palette-optimized GIF export.
 - `../assets/banner.gif`: 1200 × 360, 320 frames at 20 fps, looping every 16 seconds.
-- `../assets/banner-static.png`: matching still for reduced-motion preferences and the explicit static-banner link.
+- `../assets/banner-static.png`: matching still available through the explicit static-banner link.
 - `../assets/banner.svg`: original static masthead, retained as an alternative.
 
 ## Rebuild
@@ -30,4 +30,4 @@ BROWSER_CHANNEL=chromium node scripts/render-banner.cjs
 
 Frames are generated in a unique temporary directory under `JCODE_SCRATCH_DIR` when set, otherwise the OS temporary directory. Temporary frames are removed after rendering. The script checks that the loop endpoints match, the artwork moves, the headline stays pixel-identical, and the exported GIF is smaller than 5 MiB before copying the output assets. Exact rasterization can vary with installed fonts and browser versions.
 
-Open `banner.html` directly to inspect the source animation. Add `?capture=1` to freeze playback for frame capture. The source respects reduced-motion preferences. The README uses a `<picture>` source for the still when reduced motion is requested, plus a direct static-image link for renderers that do not honor the media query. Browser behavior was checked in the local preview, not on a published GitHub profile.
+Open `banner.html` directly to inspect the source animation. Add `?capture=1` to freeze playback for frame capture. The source respects reduced-motion preferences. The README embeds the GIF directly without a fixed height so narrower columns preserve its natural aspect ratio. The static PNG is an explicit link, not an automatic replacement. GitHub's own accessibility settings control GIF autoplay independently.
